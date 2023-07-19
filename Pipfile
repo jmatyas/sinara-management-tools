@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+adafruit-blinka = "*"
+adafruit-circuitpython-mcp230xx = "*"
+adafruit-circuitpython-register = "*"
+flake8 = "*"
+flake8-bugbear = "*"
+black = "*"
+isort = "*"
+pre-commit = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
