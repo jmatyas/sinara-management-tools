@@ -1,9 +1,9 @@
 [tool.black]
 exclude = '''
 (
-  /(
-      \.git
-   )/
+    \.git,
+    | sinara.py
+
 )
 '''
 

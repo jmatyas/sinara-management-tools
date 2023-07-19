@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: MIT
 
 import digitalio
+from adafruit_bus_device import i2c_device
 
-from sinara_mgmt.chips.pca9539 import PCA9539
 from sinara_mgmt.chips.eeprom_24aa025e48 import EEPROM24AA02E48, EEPROM24AA025E48
+from sinara_mgmt.chips.pca9539 import PCA9539
 from sinara_mgmt.kasli import KasliI2C
 from sinara_mgmt.sinara import Sinara
-from adafruit_bus_device import i2c_device
 
 
 def map_to_eem(slot_no, diot_peripheral):
@@ -80,7 +80,7 @@ class KasliDIOT(KasliI2C):
         servmod = self.servmods[slot]
         servmod.direction = digitalio.Direction.INPUT
 
-        if servmod.value == False:  # peripheral board inserted in a given slot
+        if servmod.value is False:  # peripheral board inserted in a given slot
             # make sure that shared I2C bus is enabled
             en_i2c0, en_i2c1 = self.adapter_expander0.get_pin(
                 16
@@ -187,7 +187,7 @@ class EemDiotAdapter:
         try:
             _i2c_dev.__probe_for_device()
             return True
-        except OSError as e:
+        except OSError:
             return None
         finally:
             self.release_eem_i2c()

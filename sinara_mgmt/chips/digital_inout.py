@@ -11,8 +11,10 @@ Digital input/output of the PCA9539.
 * Author(s): Jakub Matyas
 """
 
-import digitalio
 from typing import Optional
+
+import digitalio
+
 from .pca9539_base import PCA9539Base
 
 try:
@@ -45,8 +47,7 @@ class DigitalInOut:
     """
 
     def __init__(self, pin_number: int, PCA9539: PCA9539Base) -> None:
-        """Specify the pin number of the PCA9539 (0...15) instance.
-        """
+        """Specify the pin number of the PCA9539 (0...15) instance."""
         self._pin = pin_number
         self._pca = PCA9539
 
@@ -62,9 +63,7 @@ class DigitalInOut:
         self.direction = digitalio.Direction.OUTPUT
         self.value = value
 
-    def switch_to_input(
-        self, invert_polarity: bool = False, **kwargs
-    ) -> None:
+    def switch_to_input(self, invert_polarity: bool = False, **kwargs) -> None:
         """Switch the pin state to a digital input with the provided starting
         pull-up resistor state (optional, no pull-up by default) and input polarity.  Note that
         pull-down resistors are NOT supported!
@@ -113,7 +112,7 @@ class DigitalInOut:
 
     @pull.setter
     def pull(self, val: Pull) -> None:
-            raise ValueError("Pull-up/pull-down resistors not supported.")
+        raise ValueError("Pull-up/pull-down resistors not supported.")
 
     @property
     def invert_polarity(self) -> bool:

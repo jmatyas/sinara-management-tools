@@ -3,10 +3,11 @@
 #
 # SPDX-License-Identifier: MIT
 
+import time
+from typing import List
+
 from adafruit_bus_device import i2c_device
 from busio import I2C
-from typing import List
-import time
 
 
 class EE24AA02XEXX:

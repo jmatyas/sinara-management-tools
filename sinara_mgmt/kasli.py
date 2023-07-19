@@ -4,23 +4,22 @@
 # SPDX-License-Identifier: MIT
 import os
 
-from adafruit_blinka.microcontroller.ftdi_mpsse.mpsse.pin import Pin
-from adafruit_blinka.microcontroller.ftdi_mpsse.mpsse.i2c import I2C as _I2C
-
-from busio import I2C
 import digitalio
+from adafruit_blinka.microcontroller.ftdi_mpsse.mpsse.i2c import I2C as _I2C
+from adafruit_blinka.microcontroller.ftdi_mpsse.mpsse.pin import Pin
+from adafruit_bus_device import i2c_device
+from adafruit_mcp230xx.mcp23017 import MCP23017
+from busio import I2C
 
+from sinara_mgmt.chips.eeprom_24aa025e48 import EEPROM24AA02E48, EEPROM24AA025E48
 from sinara_mgmt.chips.tca9548a import TCA9548A
 from sinara_mgmt.sinara import Sinara
-from adafruit_mcp230xx.mcp23017 import MCP23017
-from sinara_mgmt.chips.eeprom_24aa025e48 import EEPROM24AA025E48, EEPROM24AA02E48
-from adafruit_bus_device import i2c_device
-from sinara_mgmt.chips.lm75 import LM75
 
 
 # patching ftdi_mpsse.mpsse.i2c.I2C.scan method so it accepts one argument
 def patched_scan_method(self, write=False):
     return [addr for addr in range(0x79) if self._i2c.poll(addr, write)]
+
 
 _I2C.scan = patched_scan_method
 
@@ -52,7 +51,6 @@ class SFPIO:
         # External pullup
         self.tx_fault = expander.get_pin(0 + offset)
         self.tx_fault.direction = digitalio.Direction.INPUT
-
 
 
 class KasliI2C(I2C):
@@ -118,7 +116,7 @@ class KasliI2C(I2C):
 
     def scan(self, write=False):
         # Override method from busio.i2c.scan, so it accepts one positional
-        # argument 
+        # argument
         return self._i2c.scan(write)
 
     @property
@@ -144,7 +142,7 @@ class KasliI2C(I2C):
             try:
                 eem_dev = self.identify_eem(eem_bus)
             except ValueError as e:
-                raise ValueError(f'{e} on slot {slot}')
+                raise ValueError(f"{e} on slot {slot}")
             if eem_dev is not None:
                 eem_peripherals.append((eem_dev, slot))
 
@@ -153,8 +151,8 @@ class KasliI2C(I2C):
     def identify_eem(self, eem_bus):
         try:
             # probe for EEPROM on a given EEM
-            _i2c_dev = i2c_device.I2CDevice(eem_bus, 0x50, probe=True)
-        except ValueError as e:
+            i2c_device.I2CDevice(eem_bus, 0x50, probe=True)
+        except ValueError:
             return None
 
         ee = EEPROM24AA02E48(eem_bus, address=0x50)

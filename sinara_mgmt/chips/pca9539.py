@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2023 Jakub Matyas
+# SPDX-FileCopyrightText: 2023 Jakub Matyas for Warsaw University of Technology
 #
 # SPDX-License-Identifier: MIT
 
@@ -17,11 +17,10 @@ try:
 except ImportError:
     pass
 
-from .digital_inout import DigitalInOut
 from micropython import const
+
+from .digital_inout import DigitalInOut
 from .pca9539_base import PCA9539Base
-
-
 
 _PCA9539_ADDRESS = const(0x74)
 _PCA9539_IPORT0 = const(0x00)
@@ -32,6 +31,7 @@ _PCA9539_POLINV0 = const(0x04)
 _PCA9539_POLINV1 = const(0x05)
 _PCA9539_CONF0 = const(0x06)
 _PCA9539_CONF1 = const(0x07)
+
 
 class PCA9539(PCA9539Base):
     """Supports PCA9539 instance on specified I2C bus and optionally
@@ -59,7 +59,7 @@ class PCA9539(PCA9539Base):
     @gpio.setter
     def gpio(self, val: int) -> None:
         """The raw GPIO output register.  Each bit represents the
-        value of the associated output pin (0 = low, 1 = high), assuming 
+        value of the associated output pin (0 = low, 1 = high), assuming
         the pin has been configured as an output. Otherwise, bit values have no
         effect on pins defined as inputs.
         """

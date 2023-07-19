@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: MIT
 
 """
-Modified CircuitPython driver for the TCA9548A I2C Multiplexer 
+Modified CircuitPython driver for the TCA9548A I2C Multiplexer
 with channel operation wrapper added, that changes driver's behaviour
 - releases TCA9548A bus after every operation to avoid bus locking.
 
@@ -31,13 +31,15 @@ Implementation Notes
 """
 
 import time
+
 from micropython import const
 
 try:
     from typing import List
-    from typing_extensions import Literal
-    from circuitpython_typing import WriteableBuffer, ReadableBuffer
+
     from busio import I2C
+    from circuitpython_typing import ReadableBuffer, WriteableBuffer
+    from typing_extensions import Literal
 except ImportError:
     pass
 
@@ -62,6 +64,7 @@ class TCA9548A_Channel:
             ret = func(self, *args, **kwargs)
             self.tca.i2c.writeto(self.tca.address, b"\x00")
             return ret
+
         return wrapper
 
     def try_lock(self) -> bool:
@@ -112,7 +115,7 @@ class TCA9548A_Channel:
     def poll(self, device_address: int) -> None:
         """implementation taken from i2c_device.I2CDevice.__poll_for_device()"""
         self.try_lock()
-        
+
         try:
             self.writeto(device_address, b"")
         except OSError:

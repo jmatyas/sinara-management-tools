@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2023 Jakub Matyas for TechnoSystem sp. z o.o.
+#
+# SPDX-License-Identifier: MIT
+
 import adafruit_bus_device.i2c_device as i2cdevice
 from adafruit_register.i2c_bit import RWBit
 from adafruit_register.i2c_bits import ROBits, RWBits

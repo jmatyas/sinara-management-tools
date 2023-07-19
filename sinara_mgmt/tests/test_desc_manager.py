@@ -3,14 +3,11 @@
 # SPDX-License-Identifier: MIT
 
 
-from sinara_mgmt.sinara import Sinara
-from sinara_mgmt.kasli_diot import (
-    EemDiotAdapter,
-    map_to_eem,
-    unwrap_from_diot,
-)
-from sinara_mgmt.description_manager import SystemDescription
 from unittest.mock import Mock
+
+from sinara_mgmt.description_manager import SystemDescription
+from sinara_mgmt.kasli_diot import EemDiotAdapter, map_to_eem, unwrap_from_diot
+from sinara_mgmt.sinara import Sinara
 
 KASLI = Sinara(
     name="Kasli",

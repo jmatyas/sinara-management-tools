@@ -1,25 +1,25 @@
-# SPDX-FileCopyrightText: 2023 Jakub Matyas
+# SPDX-FileCopyrightText: 2023 Jakub Matyas for Warsaw University of Technology
 #
 # SPDX-License-Identifier: MIT
 
 
 from adafruit_bus_device import i2c_device
+
 try:
-    from typing import List
     from busio import I2C
 except ImportError:
     pass
 
 
-# Global buffer for reading and writing registers with the devices.  
+# Global buffer for reading and writing registers with the devices.
 _BUFFER = bytearray(3)
 
 
 class PCA9539Base:
-    def __init__ (
-            self, 
-            bus_device: I2C,
-            address: int,
+    def __init__(
+        self,
+        bus_device: I2C,
+        address: int,
     ) -> None:
         self._device = i2c_device.I2CDevice(bus_device, address)
 

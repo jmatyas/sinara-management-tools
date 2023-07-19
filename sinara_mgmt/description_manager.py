@@ -3,9 +3,10 @@
 # SPDX-License-Identifier: MIT
 
 
-from sinara_mgmt.sinara import Sinara, _SinaraTuple
-from typing import List, Tuple
 import json
+from typing import List, Tuple
+
+from sinara_mgmt.sinara import Sinara, _SinaraTuple
 
 SINARA_KEYS = _SinaraTuple._fields
 
@@ -150,7 +151,6 @@ class SystemDescription(DescGenerationManager):
     def gen_urukul(self, device, ports):
         urukul_special = {
             # === UNDISCOVERABLE FROM EEPROM ===
-            "clk_sel": 2,
             "synchronization": "false",
             "refclk": 0,
             "clk_sel": 0,
